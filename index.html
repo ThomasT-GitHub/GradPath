@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradPath - UCF Academic Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Frame 0: Splash Screen -->
+    <div id="frame-splash" class="frame active">
+        <div class="splash-container">
+            <h1 class="splash-title">GradPath</h1>
+            <p class="splash-subtitle">Loading your degree roadmap…</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Frame 1: Login -->
+    <div id="frame-login" class="frame">
+        <div class="login-container">
+            <img src="https://www.ucf.edu/wp-content/blogs.dir/2/files/2021/08/UCF-Tab-PEG-H-RGB_primary.png" alt="UCF Logo" class="ucf-logo">
+            <h2>Welcome to GradPath</h2>
+            <p>Plan your academic journey with confidence</p>
+            <button class="btn-primary btn-large" onclick="navigateTo('frame-dashboard')">Sign in with UCF</button>
+        </div>
+    </div>
+
+    <!-- Frame 2: Dashboard / Degree Map -->
+    <div id="frame-dashboard" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')" class="active">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')">History</a>
+                <a href="#" onclick="navigateTo('frame-help')">Help</a>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <div class="degree-map">
+                <h2>Your Degree Roadmap - Computer Science BS</h2>
+                <div class="course-graph">
+                    <!-- Prerequisites visualization -->
+                    <svg class="connection-lines" id="connection-svg"></svg>
+
+                    <!-- Course nodes -->
+                    <div class="course-node completed" data-course="COP3502" style="top: 100px; left: 100px;" onclick="showCourseDetails('COP3502')">
+                        <div class="course-code">COP 3502</div>
+                        <div class="course-name">Programming I</div>
+                    </div>
+
+                    <div class="course-node completed" data-course="COP3503" style="top: 100px; left: 300px;" onclick="showCourseDetails('COP3503')">
+                        <div class="course-code">COP 3503</div>
+                        <div class="course-name">Programming II</div>
+                    </div>
+
+                    <div class="course-node in-progress" data-course="COP3530" style="top: 250px; left: 200px;" onclick="showCourseDetails('COP3530')">
+                        <div class="course-code">COP 3530</div>
+                        <div class="course-name">Data Structures</div>
+                    </div>
+
+                    <div class="course-node" data-course="COP4520" style="top: 400px; left: 200px;" onclick="showCourseDetails('COP4520')">
+                        <div class="course-code">COP 4520</div>
+                        <div class="course-name">Parallel Computing</div>
+                    </div>
+
+                    <div class="course-node completed" data-course="COT3100" style="top: 100px; left: 500px;" onclick="showCourseDetails('COT3100')">
+                        <div class="course-code">COT 3100</div>
+                        <div class="course-name">Discrete Math</div>
+                    </div>
+
+                    <div class="course-node" data-course="COT4210" style="top: 250px; left: 500px;" onclick="showCourseDetails('COT4210')">
+                        <div class="course-code">COT 4210</div>
+                        <div class="course-name">Algorithms</div>
+                    </div>
+
+                    <div class="course-node completed" data-course="MAC2311" style="top: 100px; left: 700px;" onclick="showCourseDetails('MAC2311')">
+                        <div class="course-code">MAC 2311</div>
+                        <div class="course-name">Calculus I</div>
+                    </div>
+
+                    <div class="course-node" data-course="STA3032" style="top: 250px; left: 700px;" onclick="showCourseDetails('STA3032')">
+                        <div class="course-code">STA 3032</div>
+                        <div class="course-name">Statistics</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-sidebar">
+                <div class="progress-ring-container">
+                    <svg class="progress-ring" width="150" height="150">
+                        <circle class="progress-ring-circle-bg" cx="75" cy="75" r="65"></circle>
+                        <circle class="progress-ring-circle" cx="75" cy="75" r="65"
+                                style="stroke-dasharray: 408.407; stroke-dashoffset: 102.102;"></circle>
+                    </svg>
+                    <div class="progress-ring-text">
+                        <div class="progress-percent">75%</div>
+                        <div class="progress-label">Complete</div>
+                    </div>
+                </div>
+
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Credits Earned</div>
+                        <div class="stat-value">90 / 120</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Expected Graduation</div>
+                        <div class="stat-value">Fall 2026</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">GPA</div>
+                        <div class="stat-value">3.65</div>
+                    </div>
+                </div>
+
+                <div class="alerts-section">
+                    <h3>Alerts</h3>
+                    <div class="alert-item warning">
+                        <span class="alert-icon">⚠️</span>
+                        <span>COP 4520 has limited seats</span>
+                    </div>
+                    <div class="alert-item info">
+                        <span class="alert-icon">ℹ️</span>
+                        <span>Registration opens in 2 weeks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 3: Planner -->
+    <div id="frame-planner" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')" class="active">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')">History</a>
+                <a href="#" onclick="navigateTo('frame-help')">Help</a>
+            </div>
+        </nav>
+
+        <div class="planner-content">
+            <div class="available-courses">
+                <h3>Available Courses</h3>
+                <div class="course-list" id="available-courses-list">
+                    <div class="course-card draggable" draggable="true" data-course="COP4520">
+                        <div class="course-card-header">
+                            <span class="course-code">COP 4520</span>
+                            <span class="course-credits">3 CR</span>
+                        </div>
+                        <div class="course-title">Parallel Computing</div>
+                        <div class="course-prereqs">Prereq: COP 3530</div>
+                    </div>
+                    <div class="course-card draggable" draggable="true" data-course="COT4210">
+                        <div class="course-card-header">
+                            <span class="course-code">COT 4210</span>
+                            <span class="course-credits">3 CR</span>
+                        </div>
+                        <div class="course-title">Algorithms</div>
+                        <div class="course-prereqs">Prereq: COP 3530, COT 3100</div>
+                    </div>
+                    <div class="course-card draggable" draggable="true" data-course="STA3032">
+                        <div class="course-card-header">
+                            <span class="course-code">STA 3032</span>
+                            <span class="course-credits">3 CR</span>
+                        </div>
+                        <div class="course-title">Statistical Methods</div>
+                        <div class="course-prereqs">Prereq: MAC 2311</div>
+                    </div>
+                    <div class="course-card draggable" draggable="true" data-course="CDA3103">
+                        <div class="course-card-header">
+                            <span class="course-code">CDA 3103</span>
+                            <span class="course-credits">3 CR</span>
+                        </div>
+                        <div class="course-title">Computer Organization</div>
+                        <div class="course-prereqs">Prereq: COP 3502</div>
+                    </div>
+                    <div class="course-card draggable" draggable="true" data-course="EEL4768">
+                        <div class="course-card-header">
+                            <span class="course-code">EEL 4768</span>
+                            <span class="course-credits">3 CR</span>
+                        </div>
+                        <div class="course-title">Computer Architecture</div>
+                        <div class="course-prereqs">Prereq: CDA 3103</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="semester-grid">
+                <h3>Plan Your Semesters</h3>
+                <div class="semesters-container">
+                    <div class="semester-column drop-zone" data-semester="Fall 2025">
+                        <div class="semester-header">
+                            <h4>Fall 2025</h4>
+                            <span class="credit-count">0 / 15 CR</span>
+                        </div>
+                        <div class="semester-courses"></div>
+                    </div>
+
+                    <div class="semester-column drop-zone" data-semester="Spring 2026">
+                        <div class="semester-header">
+                            <h4>Spring 2026</h4>
+                            <span class="credit-count">0 / 15 CR</span>
+                        </div>
+                        <div class="semester-courses"></div>
+                    </div>
+
+                    <div class="semester-column drop-zone" data-semester="Summer 2026">
+                        <div class="semester-header">
+                            <h4>Summer 2026</h4>
+                            <span class="credit-count">0 / 12 CR</span>
+                        </div>
+                        <div class="semester-courses"></div>
+                    </div>
+
+                    <div class="semester-column drop-zone" data-semester="Fall 2026">
+                        <div class="semester-header">
+                            <h4>Fall 2026</h4>
+                            <span class="credit-count">0 / 15 CR</span>
+                        </div>
+                        <div class="semester-courses"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="planner-alert" class="alert-banner hidden">
+            <span class="alert-text">⚠️ This plan delays graduation by 1 term</span>
+            <div class="alert-actions">
+                <button class="btn-sm" onclick="navigateTo('frame-catalog')">See Why</button>
+                <button class="btn-sm btn-primary" onclick="hideAlert()">Adjust</button>
+                <button class="btn-sm" onclick="hideAlert()">✕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 5: Course Catalog -->
+    <div id="frame-catalog" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')" class="active">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')">History</a>
+                <a href="#" onclick="navigateTo('frame-help')">Help</a>
+            </div>
+        </nav>
+
+        <div class="catalog-content">
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="catalog-search" placeholder="Search courses..." oninput="searchCatalog()">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="filter-tags">
+                    <button class="filter-tag active" onclick="filterCatalog('all')">All</button>
+                    <button class="filter-tag" onclick="filterCatalog('CS')">Computer Science</button>
+                    <button class="filter-tag" onclick="filterCatalog('MATH')">Math</button>
+                    <button class="filter-tag" onclick="filterCatalog('GenEd')">Gen Ed</button>
+                </div>
+            </div>
+
+            <div class="catalog-grid" id="catalog-grid">
+                <!-- Course cards will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 6: Progress Overview -->
+    <div id="frame-progress" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')" class="active">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')">History</a>
+                <a href="#" onclick="navigateTo('frame-help')">Help</a>
+            </div>
+        </nav>
+
+        <div class="progress-content">
+            <h2>Your Degree Progress</h2>
+
+            <div class="progress-hero">
+                <svg class="progress-ring-large" width="250" height="250">
+                    <circle class="progress-ring-circle-bg" cx="125" cy="125" r="110"></circle>
+                    <circle class="progress-ring-circle" cx="125" cy="125" r="110"
+                            style="stroke-dasharray: 691; stroke-dashoffset: 172.75;"></circle>
+                </svg>
+                <div class="progress-ring-text-large">
+                    <div class="progress-percent-large">75%</div>
+                    <div class="progress-label-large">Complete</div>
+                    <div class="progress-sublabel">90 of 120 credits</div>
+                </div>
+            </div>
+
+            <div class="progress-categories">
+                <div class="category-card" onclick="navigateTo('frame-catalog')">
+                    <h3>Major Requirements</h3>
+                    <div class="category-bar">
+                        <div class="category-bar-fill" style="width: 70%"></div>
+                    </div>
+                    <div class="category-stats">42 / 60 credits</div>
+                </div>
+
+                <div class="category-card" onclick="navigateTo('frame-catalog')">
+                    <h3>General Education</h3>
+                    <div class="category-bar">
+                        <div class="category-bar-fill" style="width: 90%"></div>
+                    </div>
+                    <div class="category-stats">27 / 30 credits</div>
+                </div>
+
+                <div class="category-card" onclick="navigateTo('frame-catalog')">
+                    <h3>Electives</h3>
+                    <div class="category-bar">
+                        <div class="category-bar-fill" style="width: 70%"></div>
+                    </div>
+                    <div class="category-stats">21 / 30 credits</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 7: Saved Courses -->
+    <div id="frame-saved" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')" class="active">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')">History</a>
+                <a href="#" onclick="navigateTo('frame-help')">Help</a>
+            </div>
+        </nav>
+
+        <div class="saved-content">
+            <h2>Saved Courses</h2>
+            <div class="saved-list" id="saved-courses-list">
+                <!-- Saved courses will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 9: What-If -->
+    <div id="frame-whatif" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')" class="active">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')">History</a>
+                <a href="#" onclick="navigateTo('frame-help')">Help</a>
+            </div>
+        </nav>
+
+        <div class="whatif-content">
+            <h2>What-If Major Explorer</h2>
+            <p class="whatif-subtitle">Explore how changing your major would affect your timeline</p>
+
+            <div class="major-selector">
+                <div class="current-major">
+                    <label>Current Major</label>
+                    <div class="major-display">Computer Science BS</div>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="new-major">
+                    <label>Compare With</label>
+                    <select id="whatif-major" onchange="updateWhatIf()">
+                        <option value="CS">Computer Science BS</option>
+                        <option value="DS">Data Science BS</option>
+                        <option value="CE">Computer Engineering</option>
+                        <option value="IT">Information Technology BS</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="comparison-grid" id="whatif-comparison">
+                <div class="comparison-column">
+                    <h3>Current Plan</h3>
+                    <div class="timeline-item">
+                        <div class="timeline-label">Expected Graduation</div>
+                        <div class="timeline-value">Fall 2026</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label">Remaining Credits</div>
+                        <div class="timeline-value">30 credits</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label">Remaining Semesters</div>
+                        <div class="timeline-value">2 semesters</div>
+                    </div>
+                </div>
+
+                <div class="comparison-column" id="new-plan">
+                    <h3>Computer Science BS</h3>
+                    <div class="timeline-item">
+                        <div class="timeline-label">Expected Graduation</div>
+                        <div class="timeline-value">Fall 2026</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label">Remaining Credits</div>
+                        <div class="timeline-value">30 credits</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label">Remaining Semesters</div>
+                        <div class="timeline-value">2 semesters</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 10: History -->
+    <div id="frame-history" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')" class="active">History</a>
+                <a href="#" onclick="navigateTo('frame-help')">Help</a>
+            </div>
+        </nav>
+
+        <div class="history-content">
+            <h2>Course History</h2>
+
+            <div class="semester-accordion">
+                <div class="semester-item" onclick="toggleSemester(this)">
+                    <div class="semester-bar">
+                        <div class="semester-info">
+                            <span class="semester-name">Fall 2024</span>
+                            <span class="semester-credits">15 credits • GPA: 3.8</span>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="semester-courses-list">
+                        <div class="history-course">
+                            <span class="course-code">COP 3530</span>
+                            <span class="course-name">Data Structures</span>
+                            <span class="course-grade">A</span>
+                        </div>
+                        <div class="history-course">
+                            <span class="course-code">COT 3100</span>
+                            <span class="course-name">Discrete Math</span>
+                            <span class="course-grade">A-</span>
+                        </div>
+                        <div class="history-course">
+                            <span class="course-code">MAC 2311</span>
+                            <span class="course-name">Calculus I</span>
+                            <span class="course-grade">B+</span>
+                        </div>
+                        <div class="history-course">
+                            <span class="course-code">ENC 1101</span>
+                            <span class="course-name">Composition I</span>
+                            <span class="course-grade">A</span>
+                        </div>
+                        <div class="history-course">
+                            <span class="course-code">AMH 2010</span>
+                            <span class="course-name">US History</span>
+                            <span class="course-grade">A-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="semester-item" onclick="toggleSemester(this)">
+                    <div class="semester-bar">
+                        <div class="semester-info">
+                            <span class="semester-name">Spring 2024</span>
+                            <span class="semester-credits">15 credits • GPA: 3.6</span>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="semester-courses-list">
+                        <div class="history-course">
+                            <span class="course-code">COP 3503</span>
+                            <span class="course-name">Programming II</span>
+                            <span class="course-grade">A</span>
+                        </div>
+                        <div class="history-course">
+                            <span class="course-code">COP 3502</span>
+                            <span class="course-name">Programming I</span>
+                            <span class="course-grade">B+</span>
+                        </div>
+                        <div class="history-course">
+                            <span class="course-code">MAC 1105</span>
+                            <span class="course-name">College Algebra</span>
+                            <span class="course-grade">A-</span>
+                        </div>
+                        <div class="history-course">
+                            <span class="course-code">PSY 2012</span>
+                            <span class="course-name">General Psychology</span>
+                            <span class="course-grade">A</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 11: Help -->
+    <div id="frame-help" class="frame">
+        <nav class="top-nav">
+            <div class="nav-logo">GradPath</div>
+            <div class="nav-links">
+                <a href="#" onclick="navigateTo('frame-dashboard')">Dashboard</a>
+                <a href="#" onclick="navigateTo('frame-planner')">Planner</a>
+                <a href="#" onclick="navigateTo('frame-catalog')">Catalog</a>
+                <a href="#" onclick="navigateTo('frame-whatif')">What-If</a>
+                <a href="#" onclick="navigateTo('frame-progress')">Progress</a>
+                <a href="#" onclick="navigateTo('frame-saved')">Saved</a>
+                <a href="#" onclick="navigateTo('frame-history')">History</a>
+                <a href="#" onclick="navigateTo('frame-help')" class="active">Help</a>
+            </div>
+        </nav>
+
+        <div class="help-content">
+            <h2>Help & Support</h2>
+
+            <div class="help-sections">
+                <div class="help-card">
+                    <h3>🗺️ Dashboard</h3>
+                    <p>The dashboard shows your degree roadmap with course prerequisites. Click any course to view details.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>📅 Planner</h3>
+                    <p>Drag courses from the available list into semester slots. The system will alert you if prerequisites are missing or if your plan delays graduation.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>📚 Catalog</h3>
+                    <p>Search and filter courses. Click any course to see details and add it to your saved list or planner.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>🔮 What-If</h3>
+                    <p>Explore different majors and see how they would affect your graduation timeline.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>📊 Progress</h3>
+                    <p>View your completion progress across major requirements, general education, and electives.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>💾 Saved Courses</h3>
+                    <p>Access your bookmarked courses and quickly add them to your planner.</p>
+                </div>
+
+                <div class="help-card">
+                    <h3>📜 History</h3>
+                    <p>Review past semesters, grades, and track your academic journey.</p>
+                </div>
+            </div>
+
+            <div class="help-contact">
+                <h3>Need More Help?</h3>
+                <p>Contact UCF Academic Advising or visit the Student Success Center</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frame 4: Course Details Overlay -->
+    <div id="overlay" class="overlay" onclick="closeOverlay()">
+        <div class="overlay-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeOverlay()">✕</button>
+            <div id="overlay-body">
+                <!-- Course details will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

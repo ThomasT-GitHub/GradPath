@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradPath - Progress</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-logo">GradPath</div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="planner.html">Planner</a>
+            <a href="catalog.html">Catalog</a>
+            <a href="whatif.html">What-If</a>
+            <a href="progress.html" class="active">Progress</a>
+            <a href="saved.html">Saved</a>
+            <a href="history.html">History</a>
+            <a href="help.html">Help</a>
+        </div>
+    </nav>
+
+    <div class="progress-content">
+        <h2>Your Degree Progress</h2>
+
+        <div class="progress-hero">
+            <svg class="progress-ring-large" width="250" height="250">
+                <circle class="progress-ring-circle-bg" cx="125" cy="125" r="110"></circle>
+                <circle class="progress-ring-circle" cx="125" cy="125" r="110"
+                        style="stroke-dasharray: 691; stroke-dashoffset: 172.75;"></circle>
+            </svg>
+            <div class="progress-ring-text-large">
+                <div class="progress-percent-large">75%</div>
+                <div class="progress-label-large">Complete</div>
+                <div class="progress-sublabel">90 of 120 credits</div>
+            </div>
+        </div>
+
+        <div class="progress-categories">
+            <div class="category-card" onclick="window.location.href='catalog.html'">
+                <h3>Major Requirements</h3>
+                <div class="category-bar">
+                    <div class="category-bar-fill" style="width: 70%"></div>
+                </div>
+                <div class="category-stats">42 / 60 credits</div>
+            </div>
+
+            <div class="category-card" onclick="window.location.href='catalog.html'">
+                <h3>General Education</h3>
+                <div class="category-bar">
+                    <div class="category-bar-fill" style="width: 90%"></div>
+                </div>
+                <div class="category-stats">27 / 30 credits</div>
+            </div>
+
+            <div class="category-card" onclick="window.location.href='catalog.html'">
+                <h3>Electives</h3>
+                <div class="category-bar">
+                    <div class="category-bar-fill" style="width: 70%"></div>
+                </div>
+                <div class="category-stats">21 / 30 credits</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

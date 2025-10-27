@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradPath - Course Catalog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-logo">GradPath</div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="planner.html">Planner</a>
+            <a href="catalog.html" class="active">Catalog</a>
+            <a href="whatif.html">What-If</a>
+            <a href="progress.html">Progress</a>
+            <a href="saved.html">Saved</a>
+            <a href="history.html">History</a>
+            <a href="help.html">Help</a>
+        </div>
+    </nav>
+
+    <div class="catalog-content">
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" id="catalog-search" placeholder="Search courses..." oninput="searchCatalog()">
+                <button class="search-btn">🔍</button>
+            </div>
+            <div class="filter-tags">
+                <button class="filter-tag active" onclick="filterCatalog('all')">All</button>
+                <button class="filter-tag" onclick="filterCatalog('CS')">Computer Science</button>
+                <button class="filter-tag" onclick="filterCatalog('MATH')">Math</button>
+                <button class="filter-tag" onclick="filterCatalog('GenEd')">Gen Ed</button>
+            </div>
+        </div>
+
+        <div class="catalog-grid" id="catalog-grid"></div>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeOverlay()">
+        <div class="overlay-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeOverlay()">✕</button>
+            <div id="overlay-body"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

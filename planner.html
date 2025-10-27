@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradPath - Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-logo">GradPath</div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="planner.html" class="active">Planner</a>
+            <a href="catalog.html">Catalog</a>
+            <a href="whatif.html">What-If</a>
+            <a href="progress.html">Progress</a>
+            <a href="saved.html">Saved</a>
+            <a href="history.html">History</a>
+            <a href="help.html">Help</a>
+        </div>
+    </nav>
+
+    <div class="planner-content">
+        <div class="available-courses">
+            <h3>Available Courses</h3>
+            <div class="course-list" id="available-courses-list">
+                <div class="course-card draggable" draggable="true" data-course="COP4520">
+                    <div class="course-card-header">
+                        <span class="course-code">COP 4520</span>
+                        <span class="course-credits">3 CR</span>
+                    </div>
+                    <div class="course-title">Parallel Computing</div>
+                    <div class="course-prereqs">Prereq: COP 3530</div>
+                </div>
+                <div class="course-card draggable" draggable="true" data-course="COT4210">
+                    <div class="course-card-header">
+                        <span class="course-code">COT 4210</span>
+                        <span class="course-credits">3 CR</span>
+                    </div>
+                    <div class="course-title">Algorithms</div>
+                    <div class="course-prereqs">Prereq: COP 3530, COT 3100</div>
+                </div>
+                <div class="course-card draggable" draggable="true" data-course="STA3032">
+                    <div class="course-card-header">
+                        <span class="course-code">STA 3032</span>
+                        <span class="course-credits">3 CR</span>
+                    </div>
+                    <div class="course-title">Statistical Methods</div>
+                    <div class="course-prereqs">Prereq: MAC 2311</div>
+                </div>
+                <div class="course-card draggable" draggable="true" data-course="CDA3103">
+                    <div class="course-card-header">
+                        <span class="course-code">CDA 3103</span>
+                        <span class="course-credits">3 CR</span>
+                    </div>
+                    <div class="course-title">Computer Organization</div>
+                    <div class="course-prereqs">Prereq: COP 3502</div>
+                </div>
+                <div class="course-card draggable" draggable="true" data-course="EEL4768">
+                    <div class="course-card-header">
+                        <span class="course-code">EEL 4768</span>
+                        <span class="course-credits">3 CR</span>
+                    </div>
+                    <div class="course-title">Computer Architecture</div>
+                    <div class="course-prereqs">Prereq: CDA 3103</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="semester-grid">
+            <h3>Plan Your Semesters</h3>
+            <div class="semesters-container">
+                <div class="semester-column drop-zone" data-semester="Fall 2025">
+                    <div class="semester-header">
+                        <h4>Fall 2025</h4>
+                        <span class="credit-count">0 / 15 CR</span>
+                    </div>
+                    <div class="semester-courses"></div>
+                </div>
+
+                <div class="semester-column drop-zone" data-semester="Spring 2026">
+                    <div class="semester-header">
+                        <h4>Spring 2026</h4>
+                        <span class="credit-count">0 / 15 CR</span>
+                    </div>
+                    <div class="semester-courses"></div>
+                </div>
+
+                <div class="semester-column drop-zone" data-semester="Summer 2026">
+                    <div class="semester-header">
+                        <h4>Summer 2026</h4>
+                        <span class="credit-count">0 / 12 CR</span>
+                    </div>
+                    <div class="semester-courses"></div>
+                </div>
+
+                <div class="semester-column drop-zone" data-semester="Fall 2026">
+                    <div class="semester-header">
+                        <h4>Fall 2026</h4>
+                        <span class="credit-count">0 / 15 CR</span>
+                    </div>
+                    <div class="semester-courses"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="planner-alert" class="alert-banner hidden">
+        <span class="alert-text">⚠️ This plan delays graduation by 1 term</span>
+        <div class="alert-actions">
+            <button class="btn-sm" onclick="window.location.href='catalog.html'">See Why</button>
+            <button class="btn-sm btn-primary" onclick="hideAlert()">Adjust</button>
+            <button class="btn-sm" onclick="hideAlert()">✕</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

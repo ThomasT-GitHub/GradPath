@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradPath - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-logo">GradPath</div>
+        <div class="nav-links">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="planner.html">Planner</a>
+            <a href="catalog.html">Catalog</a>
+            <a href="whatif.html">What-If</a>
+            <a href="progress.html">Progress</a>
+            <a href="saved.html">Saved</a>
+            <a href="history.html">History</a>
+            <a href="help.html">Help</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-content">
+        <div class="degree-map">
+            <h2>Your Degree Roadmap - Computer Science BS</h2>
+            <div class="course-graph">
+                <svg class="connection-lines" id="connection-svg"></svg>
+
+                <div class="course-node completed" data-course="COP3502" style="top: 100px; left: 100px;" onclick="showCourseDetails('COP3502')">
+                    <div class="course-code">COP 3502</div>
+                    <div class="course-name">Programming I</div>
+                </div>
+
+                <div class="course-node completed" data-course="COP3503" style="top: 100px; left: 300px;" onclick="showCourseDetails('COP3503')">
+                    <div class="course-code">COP 3503</div>
+                    <div class="course-name">Programming II</div>
+                </div>
+
+                <div class="course-node in-progress" data-course="COP3530" style="top: 250px; left: 200px;" onclick="showCourseDetails('COP3530')">
+                    <div class="course-code">COP 3530</div>
+                    <div class="course-name">Data Structures</div>
+                </div>
+
+                <div class="course-node" data-course="COP4520" style="top: 400px; left: 200px;" onclick="showCourseDetails('COP4520')">
+                    <div class="course-code">COP 4520</div>
+                    <div class="course-name">Parallel Computing</div>
+                </div>
+
+                <div class="course-node completed" data-course="COT3100" style="top: 100px; left: 500px;" onclick="showCourseDetails('COT3100')">
+                    <div class="course-code">COT 3100</div>
+                    <div class="course-name">Discrete Math</div>
+                </div>
+
+                <div class="course-node" data-course="COT4210" style="top: 250px; left: 500px;" onclick="showCourseDetails('COT4210')">
+                    <div class="course-code">COT 4210</div>
+                    <div class="course-name">Algorithms</div>
+                </div>
+
+                <div class="course-node completed" data-course="MAC2311" style="top: 100px; left: 700px;" onclick="showCourseDetails('MAC2311')">
+                    <div class="course-code">MAC 2311</div>
+                    <div class="course-name">Calculus I</div>
+                </div>
+
+                <div class="course-node" data-course="STA3032" style="top: 250px; left: 700px;" onclick="showCourseDetails('STA3032')">
+                    <div class="course-code">STA 3032</div>
+                    <div class="course-name">Statistics</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-sidebar">
+            <div class="progress-ring-container">
+                <svg class="progress-ring" width="150" height="150">
+                    <circle class="progress-ring-circle-bg" cx="75" cy="75" r="65"></circle>
+                    <circle class="progress-ring-circle" cx="75" cy="75" r="65"
+                            style="stroke-dasharray: 408.407; stroke-dashoffset: 102.102;"></circle>
+                </svg>
+                <div class="progress-ring-text">
+                    <div class="progress-percent">75%</div>
+                    <div class="progress-label">Complete</div>
+                </div>
+            </div>
+
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Credits Earned</div>
+                    <div class="stat-value">90 / 120</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Expected Graduation</div>
+                    <div class="stat-value">Fall 2026</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">GPA</div>
+                    <div class="stat-value">3.65</div>
+                </div>
+            </div>
+
+            <div class="alerts-section">
+                <h3>Alerts</h3>
+                <div class="alert-item warning">
+                    <span class="alert-icon">⚠️</span>
+                    <span>COP 4520 has limited seats</span>
+                </div>
+                <div class="alert-item info">
+                    <span class="alert-icon">ℹ️</span>
+                    <span>Registration opens in 2 weeks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeOverlay()">
+        <div class="overlay-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeOverlay()">✕</button>
+            <div id="overlay-body"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradPath - History</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-logo">GradPath</div>
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="planner.html">Planner</a>
+            <a href="catalog.html">Catalog</a>
+            <a href="whatif.html">What-If</a>
+            <a href="progress.html">Progress</a>
+            <a href="saved.html">Saved</a>
+            <a href="history.html" class="active">History</a>
+            <a href="help.html">Help</a>
+        </div>
+    </nav>
+
+    <div class="history-content">
+        <h2>Course History</h2>
+
+        <div class="semester-accordion">
+            <div class="semester-item" onclick="toggleSemester(this)">
+                <div class="semester-bar">
+                    <div class="semester-info">
+                        <span class="semester-name">Fall 2024</span>
+                        <span class="semester-credits">15 credits • GPA: 3.8</span>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="semester-courses-list">
+                    <div class="history-course">
+                        <span class="course-code">COP 3530</span>
+                        <span class="course-name">Data Structures</span>
+                        <span class="course-grade">A</span>
+                    </div>
+                    <div class="history-course">
+                        <span class="course-code">COT 3100</span>
+                        <span class="course-name">Discrete Math</span>
+                        <span class="course-grade">A-</span>
+                    </div>
+                    <div class="history-course">
+                        <span class="course-code">MAC 2311</span>
+                        <span class="course-name">Calculus I</span>
+                        <span class="course-grade">B+</span>
+                    </div>
+                    <div class="history-course">
+                        <span class="course-code">ENC 1101</span>
+                        <span class="course-name">Composition I</span>
+                        <span class="course-grade">A</span>
+                    </div>
+                    <div class="history-course">
+                        <span class="course-code">AMH 2010</span>
+                        <span class="course-name">US History</span>
+                        <span class="course-grade">A-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="semester-item" onclick="toggleSemester(this)">
+                <div class="semester-bar">
+                    <div class="semester-info">
+                        <span class="semester-name">Spring 2024</span>
+                        <span class="semester-credits">15 credits • GPA: 3.6</span>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="semester-courses-list">
+                    <div class="history-course">
+                        <span class="course-code">COP 3503</span>
+                        <span class="course-name">Programming II</span>
+                        <span class="course-grade">A</span>
+                    </div>
+                    <div class="history-course">
+                        <span class="course-code">COP 3502</span>
+                        <span class="course-name">Programming I</span>
+                        <span class="course-grade">B+</span>
+                    </div>
+                    <div class="history-course">
+                        <span class="course-code">MAC 1105</span>
+                        <span class="course-name">College Algebra</span>
+                        <span class="course-grade">A-</span>
+                    </div>
+                    <div class="history-course">
+                        <span class="course-code">PSY 2012</span>
+                        <span class="course-name">General Psychology</span>
+                        <span class="course-grade">A</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
