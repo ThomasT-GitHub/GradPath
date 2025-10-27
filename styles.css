@@ -31,10 +31,18 @@ body {
 .splash-screen {
     background: var(--ucf-gold);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     width: 100%;
+    text-align: center;
+}
+
+.splash-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 24px;
 }
 
 .splash-container {
@@ -45,6 +53,7 @@ body {
     font-size: 64px;
     font-weight: 800;
     color: var(--ucf-black);
+    margin: 0;
 }
 
 .splash-subtitle {
