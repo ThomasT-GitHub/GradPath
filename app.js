@@ -17,6 +17,116 @@ const coursesData = {
     PSY2012: { code: 'PSY 2012', name: 'General Psychology', credits: 3, prereqs: [], category: 'GenEd', description: 'Introduction to psychology.' }
 };
 
+// Planner State Management
+let plannerState = {
+    semesterPlans: {},
+    availableCourses: []
+};
+
+function initializePlannerState() {
+    // Load state from localStorage
+    const saved = localStorage.getItem('plannerState');
+    if (saved) {
+        plannerState = JSON.parse(saved);
+    } else {
+        // Initialize with all courses available
+        plannerState.availableCourses = Object.keys(coursesData);
+        plannerState.semesterPlans = {};
+    }
+}
+
+function savePlannerState() {
+    localStorage.setItem('plannerState', JSON.stringify(plannerState));
+}
+
+function getCourseIdsInSemesters() {
+    const courseIds = [];
+    Object.values(plannerState.semesterPlans).forEach(courses => {
+        courseIds.push(...courses);
+    });
+    return courseIds;
+}
+
+function getAvailableCourses() {
+    const usedCourses = getCourseIdsInSemesters();
+    return Object.keys(coursesData).filter(courseId => !usedCourses.includes(courseId));
+}
+
+function renderAvailableCourses() {
+    const container = document.getElementById('available-courses-list');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const available = getAvailableCourses();
+
+    available.forEach(courseId => {
+        const course = coursesData[courseId];
+        if (!course) return;
+
+        const card = document.createElement('div');
+        card.className = 'course-card draggable';
+        card.draggable = true;
+        card.dataset.course = courseId;
+        card.dataset.source = 'available';
+
+        const prereqsText = course.prereqs.length > 0
+            ? 'Prereq: ' + course.prereqs.map(p => coursesData[p]?.code || p).join(', ')
+            : 'No prerequisites';
+
+        card.innerHTML = `
+            <div class="course-card-header">
+                <span class="course-code">${course.code}</span>
+                <span class="course-credits">${course.credits} CR</span>
+            </div>
+            <div class="course-title">${course.name}</div>
+            <div class="course-prereqs">${prereqsText}</div>
+        `;
+
+        container.appendChild(card);
+    });
+
+    // Re-attach drag listeners to newly created cards
+    attachDragListeners();
+}
+
+function renderSemesterCourses(semesterName) {
+    const zone = document.querySelector(`.drop-zone[data-semester="${semesterName}"]`);
+    if (!zone) return;
+
+    const semesterCourses = zone.querySelector('.semester-courses');
+    semesterCourses.innerHTML = '';
+
+    const courses = plannerState.semesterPlans[semesterName] || [];
+    courses.forEach(courseId => {
+        const course = coursesData[courseId];
+        if (!course) return;
+
+        const card = document.createElement('div');
+        card.className = 'course-card draggable';
+        card.draggable = true;
+        card.dataset.course = courseId;
+        card.dataset.source = semesterName;
+
+        card.innerHTML = `
+            <div class="course-card-header">
+                <span class="course-code">${course.code}</span>
+                <span class="course-credits">${course.credits} CR</span>
+            </div>
+            <div class="course-title">${course.name}</div>
+        `;
+
+        semesterCourses.appendChild(card);
+    });
+
+    updateCreditCount(zone);
+    attachDragListeners();
+}
+
+function renderAllSemesters() {
+    const semesters = ['Fall 2025', 'Spring 2026', 'Summer 2026', 'Fall 2026'];
+    semesters.forEach(semester => renderSemesterCourses(semester));
+}
+
 // State Management (using localStorage)
 function getSavedCourses() {
     const saved = localStorage.getItem('savedCourses');
@@ -48,6 +158,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Setup drag and drop (planner page only)
     if (document.querySelector('.planner-content')) {
+        initializePlannerState();
+        renderAvailableCourses();
+        renderAllSemesters();
         setupDragAndDrop();
     }
 });
@@ -235,30 +348,96 @@ function populateSavedCourses() {
     });
 }
 
+// Semester Ordering and Prerequisite Validation
+const semesterOrder = ['Fall 2025', 'Spring 2026', 'Summer 2026', 'Fall 2026'];
+
+function getSemesterIndex(semesterName) {
+    return semesterOrder.indexOf(semesterName);
+}
+
+function isSemesterBefore(semester1, semester2) {
+    return getSemesterIndex(semester1) < getSemesterIndex(semester2);
+}
+
+function checkPrerequisiteViolation(courseId, targetSemester) {
+    const course = coursesData[courseId];
+    if (!course || course.prereqs.length === 0) {
+        return null; // No prerequisites, no violation
+    }
+
+    const missingPrereqs = [];
+    const targetIndex = getSemesterIndex(targetSemester);
+
+    course.prereqs.forEach(prereqId => {
+        let prereqFound = false;
+
+        // Check all semesters before the target semester
+        for (let i = 0; i < targetIndex; i++) {
+            const semesterName = semesterOrder[i];
+            const semesterCourses = plannerState.semesterPlans[semesterName] || [];
+            if (semesterCourses.includes(prereqId)) {
+                prereqFound = true;
+                break;
+            }
+        }
+
+        if (!prereqFound) {
+            const prereqCourse = coursesData[prereqId];
+            missingPrereqs.push(prereqCourse ? prereqCourse.code : prereqId);
+        }
+    });
+
+    if (missingPrereqs.length > 0) {
+        return {
+            courseName: course.code,
+            missing: missingPrereqs
+        };
+    }
+
+    return null;
+}
+
 // Drag and Drop for Planner
-function setupDragAndDrop() {
+let draggedCourse = null;
+let draggedSource = null;
+
+function attachDragListeners() {
     const draggables = document.querySelectorAll('.draggable');
-    const dropZones = document.querySelectorAll('.drop-zone');
 
     draggables.forEach(draggable => {
-        draggable.addEventListener('dragstart', (e) => {
-            draggable.classList.add('dragging');
-            e.dataTransfer.setData('text/plain', draggable.dataset.course);
+        // Remove old listeners by cloning
+        const newDraggable = draggable.cloneNode(true);
+        draggable.parentNode.replaceChild(newDraggable, draggable);
+
+        newDraggable.addEventListener('dragstart', (e) => {
+            newDraggable.classList.add('dragging');
+            draggedCourse = newDraggable.dataset.course;
+            draggedSource = newDraggable.dataset.source;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', draggedCourse);
         });
 
-        draggable.addEventListener('dragend', () => {
-            draggable.classList.remove('dragging');
+        newDraggable.addEventListener('dragend', () => {
+            newDraggable.classList.remove('dragging');
         });
     });
+}
+
+function setupDragAndDrop() {
+    const dropZones = document.querySelectorAll('.drop-zone');
 
     dropZones.forEach(zone => {
         zone.addEventListener('dragover', (e) => {
             e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
             zone.classList.add('drag-over');
         });
 
-        zone.addEventListener('dragleave', () => {
-            zone.classList.remove('drag-over');
+        zone.addEventListener('dragleave', (e) => {
+            // Only remove if leaving the zone itself, not child elements
+            if (e.target === zone) {
+                zone.classList.remove('drag-over');
+            }
         });
 
         zone.addEventListener('drop', (e) => {
@@ -266,30 +445,78 @@ function setupDragAndDrop() {
             zone.classList.remove('drag-over');
 
             const courseId = e.dataTransfer.getData('text/plain');
-            const course = coursesData[courseId];
+            if (!courseId || !draggedSource) return;
 
-            if (course) {
-                const semesterCourses = zone.querySelector('.semester-courses');
-                const card = document.createElement('div');
-                card.className = 'course-card';
-                card.innerHTML = `
-                    <div class="course-card-header">
-                        <span class="course-code">${course.code}</span>
-                        <span class="course-credits">${course.credits} CR</span>
-                    </div>
-                    <div class="course-title">${course.name}</div>
-                `;
-                semesterCourses.appendChild(card);
+            const destination = zone.dataset.semester || zone.dataset.zone;
 
-                updateCreditCount(zone);
+            // Don't do anything if dropping in the same location
+            if (draggedSource === destination) return;
 
-                setTimeout(() => {
-                    const alert = document.getElementById('planner-alert');
-                    if (alert && Math.random() > 0.7) {
-                        alert.classList.remove('hidden');
-                    }
-                }, 500);
+            // Remove course from source
+            if (draggedSource === 'available') {
+                // Course was in available list, no need to remove from state
+            } else {
+                // Course was in a semester
+                if (!plannerState.semesterPlans[draggedSource]) {
+                    plannerState.semesterPlans[draggedSource] = [];
+                }
+                plannerState.semesterPlans[draggedSource] =
+                    plannerState.semesterPlans[draggedSource].filter(id => id !== courseId);
             }
+
+            // Add course to destination
+            if (destination === 'available') {
+                // Course dropped back to available list
+                // State will auto-update via getAvailableCourses()
+            } else {
+                // Course dropped to a semester
+                if (!plannerState.semesterPlans[destination]) {
+                    plannerState.semesterPlans[destination] = [];
+                }
+                if (!plannerState.semesterPlans[destination].includes(courseId)) {
+                    plannerState.semesterPlans[destination].push(courseId);
+                }
+            }
+
+            // Save state and re-render
+            savePlannerState();
+            renderAvailableCourses();
+            renderAllSemesters();
+
+            // Check for prerequisite violations
+            setTimeout(() => {
+                const alert = document.getElementById('planner-alert');
+                if (!alert) return;
+
+                // Check if any course in any semester has prerequisite violations
+                let hasViolation = false;
+                let violationMessage = '';
+
+                semesterOrder.forEach(semesterName => {
+                    const courses = plannerState.semesterPlans[semesterName] || [];
+                    courses.forEach(courseId => {
+                        const violation = checkPrerequisiteViolation(courseId, semesterName);
+                        if (violation) {
+                            hasViolation = true;
+                            violationMessage = `⚠️ ${violation.courseName} requires: ${violation.missing.join(', ')}`;
+                        }
+                    });
+                });
+
+                if (hasViolation) {
+                    const alertText = alert.querySelector('.alert-text');
+                    if (alertText) {
+                        alertText.textContent = violationMessage;
+                    }
+                    alert.classList.remove('hidden');
+                } else {
+                    alert.classList.add('hidden');
+                }
+            }, 500);
+
+            // Reset drag state
+            draggedCourse = null;
+            draggedSource = null;
         });
     });
 }

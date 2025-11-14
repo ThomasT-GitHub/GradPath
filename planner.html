@@ -22,49 +22,10 @@
     </nav>
 
     <div class="planner-content">
-        <div class="available-courses">
+        <div class="available-courses drop-zone" data-zone="available">
             <h3>Available Courses</h3>
             <div class="course-list" id="available-courses-list">
-                <div class="course-card draggable" draggable="true" data-course="COP4520">
-                    <div class="course-card-header">
-                        <span class="course-code">COP 4520</span>
-                        <span class="course-credits">3 CR</span>
-                    </div>
-                    <div class="course-title">Parallel Computing</div>
-                    <div class="course-prereqs">Prereq: COP 3530</div>
-                </div>
-                <div class="course-card draggable" draggable="true" data-course="COT4210">
-                    <div class="course-card-header">
-                        <span class="course-code">COT 4210</span>
-                        <span class="course-credits">3 CR</span>
-                    </div>
-                    <div class="course-title">Algorithms</div>
-                    <div class="course-prereqs">Prereq: COP 3530, COT 3100</div>
-                </div>
-                <div class="course-card draggable" draggable="true" data-course="STA3032">
-                    <div class="course-card-header">
-                        <span class="course-code">STA 3032</span>
-                        <span class="course-credits">3 CR</span>
-                    </div>
-                    <div class="course-title">Statistical Methods</div>
-                    <div class="course-prereqs">Prereq: MAC 2311</div>
-                </div>
-                <div class="course-card draggable" draggable="true" data-course="CDA3103">
-                    <div class="course-card-header">
-                        <span class="course-code">CDA 3103</span>
-                        <span class="course-credits">3 CR</span>
-                    </div>
-                    <div class="course-title">Computer Organization</div>
-                    <div class="course-prereqs">Prereq: COP 3502</div>
-                </div>
-                <div class="course-card draggable" draggable="true" data-course="EEL4768">
-                    <div class="course-card-header">
-                        <span class="course-code">EEL 4768</span>
-                        <span class="course-credits">3 CR</span>
-                    </div>
-                    <div class="course-title">Computer Architecture</div>
-                    <div class="course-prereqs">Prereq: CDA 3103</div>
-                </div>
+                <!-- Courses will be dynamically rendered here -->
             </div>
         </div>
 
@@ -109,8 +70,6 @@
     <div id="planner-alert" class="alert-banner hidden">
         <span class="alert-text">⚠️ This plan delays graduation by 1 term</span>
         <div class="alert-actions">
-            <button class="btn-sm" onclick="window.location.href='catalog.html'">See Why</button>
-            <button class="btn-sm btn-primary" onclick="hideAlert()">Adjust</button>
             <button class="btn-sm" onclick="hideAlert()">✕</button>
         </div>
     </div>
