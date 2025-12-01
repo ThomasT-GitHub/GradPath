@@ -3,10 +3,13 @@
 // ========== //
 
 import type { SyntheticEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
+  const navigate = useNavigate()
+
   const handleSignIn = () => {
-    window.location.href = '/dashboard.html'
+    navigate('/dashboard')
   }
 
   const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
