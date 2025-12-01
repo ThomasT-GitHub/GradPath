@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import Planner from './pages/Planner'
 import Catalog from './pages/Catalog'
 import WhatIf from './pages/What-If'
+import Progress from './pages/Progress'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/planner" element={<Planner />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/what-if" element={<WhatIf />} />
+        <Route path="/progress" element={<Progress />} />
       </Routes>
     </BrowserRouter>
   )
