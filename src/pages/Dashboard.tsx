@@ -2,6 +2,8 @@
 // Dashboard Page //
 // ============== //
 
+import { BiInfoCircle } from 'react-icons/bi'
+import { IoWarningOutline } from 'react-icons/io5'
 import Navbar from '../components/Navbar'
 
 export default function Dashboard() {
@@ -144,7 +146,7 @@ export default function Dashboard() {
                     <div className="w-1 bg-yellow-500 rounded-full shrink-0 self-stretch"></div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 text-gray-300">
-                        <span className="text-yellow-500">⚠</span>
+                        <IoWarningOutline className="text-yellow-500 text-base" />
                         <span className="text-xs">COP 4520 has limited seats</span>
                       </div>
                     </div>
@@ -153,7 +155,7 @@ export default function Dashboard() {
                     <div className="w-1 bg-blue-500 rounded-full shrink-0 self-stretch"></div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 text-gray-300">
-                        <span className="text-blue-500">ℹ</span>
+                        <BiInfoCircle className="text-blue-500 text-base" />
                         <span className="text-xs">Registration opens in 2 weeks</span>
                       </div>
                     </div>
