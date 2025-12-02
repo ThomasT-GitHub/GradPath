@@ -3,7 +3,7 @@
 // ============== //
 
 import { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { 
   IoPersonOutline, 
   IoSettingsOutline, 
@@ -144,7 +144,10 @@ export default function Navbar() {
                   </div>
 
                   <div className="border-t border-gray-600 py-2">
-                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors">
+                    <button 
+                      onClick={() => navigate('/')}
+                      className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors"
+                    >
                       <IoLogOutOutline className="text-xl" />
                       <span className="text-sm">Logout</span>
                     </button>
