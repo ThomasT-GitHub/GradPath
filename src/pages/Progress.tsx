@@ -73,7 +73,7 @@ export default function Progress() {
                 <div 
                   key={category.name} 
                   onClick={() => navigate('/catalog')}
-                  className="bg-[#2d2d2d] rounded-lg shadow-xl p-6 cursor-pointer hover:border hover:border-gray-600 transition-all"
+                  className="bg-[#2d2d2d] rounded-lg shadow-xl p-6 cursor-pointer hover:opacity-80 transition-opacity"
                 >
                   <h2 className="text-lg font-bold text-white mb-4">{category.name}</h2>
                   
