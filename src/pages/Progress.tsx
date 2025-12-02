@@ -21,7 +21,7 @@ export default function Progress() {
   ]
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
       
       <main className="flex-1 overflow-auto">
@@ -30,7 +30,7 @@ export default function Progress() {
           <h1 className="text-3xl font-bold text-white mb-8">Your Degree Progress</h1>
 
           {/* Overall Progress Circle */}
-          <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-8 mb-8">
+          <div className="bg-[#1a1a1a] rounded-lg shadow-xl p-8 mb-8">
             <div className="flex items-center justify-center">
               <div className="relative w-64 h-64">
                 <svg className="w-64 h-64 transform -rotate-90">
@@ -73,7 +73,7 @@ export default function Progress() {
                 <div 
                   key={category.name} 
                   onClick={() => navigate('/catalog')}
-                  className="bg-[#2d2d2d] rounded-lg shadow-xl p-6 cursor-pointer hover:opacity-80 transition-opacity"
+                  className="bg-[#1a1a1a] rounded-lg shadow-xl p-6 cursor-pointer hover:opacity-80 transition-opacity"
                 >
                   <h2 className="text-lg font-bold text-white mb-4">{category.name}</h2>
                   

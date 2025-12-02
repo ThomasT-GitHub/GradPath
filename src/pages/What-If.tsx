@@ -8,12 +8,12 @@ import { BiInfoCircle } from 'react-icons/bi'
 import Navbar from '../components/Navbar'
 
 export default function WhatIf() {
-  const [selectedMajor, setSelectedMajor] = useState('Computer Engineering')
+  const [selectedMajor, setSelectedMajor] = useState('Computer Engineering BS')
 
   const majors = [
     'Computer Science BS',
     'Data Science BS',
-    'Computer Engineering',
+    'Computer Engineering BS',
     'Information Technology BS',
   ]
 
@@ -38,7 +38,7 @@ export default function WhatIf() {
       semesters: 3,
       coreCourses: 21,
     },
-    'Computer Engineering': {
+    'Computer Engineering BS': {
       graduation: 'Summer 2027',
       credits: 48,
       semesters: 4,
@@ -55,7 +55,7 @@ export default function WhatIf() {
   const comparisonPlan = majorPlans[selectedMajor]
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
       
       <main className="flex-1 overflow-auto flex flex-col">
@@ -63,18 +63,18 @@ export default function WhatIf() {
           {/* Header */}
           <div className="text-center mb-4">
             <div className="flex items-center justify-center gap-2">
-              <h1 className="text-xl font-bold text-white">What-If Major Explorer</h1>
+              <h1 className="text-3xl font-bold text-white">What-If Major Explorer</h1>
               <div className="group relative">
                 <BiInfoCircle className="text-gray-400 hover:text-[#FFC904] cursor-help transition-colors" size={18} />
-                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-[#2d2d2d] border border-gray-600 rounded-lg p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none">
-                  <p className="text-xs text-gray-300">Explore how changing your major would affect your timeline</p>
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-gray-800 text-white text-xs rounded-lg p-3 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none">
+                  <p className="text-xs text-gray-300">Explore how changing your major would affect your timeline.</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Comparison Selector */}
-          <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-4 mb-3">
+          <div className="bg-[#1a1a1a] rounded-lg shadow-xl p-4 mb-3">
             <div className="flex items-center justify-center gap-4">
               <div>
                 <div className="text-gray-400 text-xs mb-1">Current Major</div>
@@ -88,7 +88,7 @@ export default function WhatIf() {
                 <select
                   value={selectedMajor}
                   onChange={(e) => setSelectedMajor(e.target.value)}
-                  className="bg-[#3d3d3d] border border-gray-600 rounded-lg px-3 py-1.5 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFC904] cursor-pointer"
+                  className="bg-[#3d3d3d] rounded-lg px-3 py-1.5 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#FFC904] cursor-pointer"
                 >
                   {majors.map((major) => (
                     <option key={major} value={major} className="bg-[#3d3d3d] text-white">
@@ -103,7 +103,7 @@ export default function WhatIf() {
           {/* Comparison Cards */}
           <div className="grid grid-cols-2 gap-3">
             {/* Current Plan */}
-            <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-4">
+            <div className="bg-[#1a1a1a] rounded-lg shadow-xl p-4">
               <h2 className="text-base font-bold text-white mb-3">Current Plan</h2>
               
               <div className="space-y-3">
@@ -130,7 +130,7 @@ export default function WhatIf() {
             </div>
 
             {/* Comparison Plan */}
-            <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-4">
+            <div className="bg-[#1a1a1a] rounded-lg shadow-xl p-4">
               <h2 className="text-base font-bold text-white mb-3">{selectedMajor}</h2>
               
               <div className="space-y-3">

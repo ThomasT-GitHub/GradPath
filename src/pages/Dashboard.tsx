@@ -164,7 +164,7 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
       
       {/* Main content */}
@@ -173,8 +173,8 @@ export default function Dashboard() {
           <div className="flex gap-4 h-full">
             {/* Left side - Degree Roadmap */}
             <div className="flex-1 flex flex-col min-w-0">
-              <div className="bg-[#2d2d2d] rounded-lg shadow-xl flex-1 flex flex-col overflow-hidden">
-                <div className="p-4 border-b border-gray-700">
+              <div className="bg-[#1a1a1a] rounded-lg shadow-xl flex-1 flex flex-col overflow-hidden">
+                <div className="p-4">
                   <div className="flex items-center gap-2">
                     <h1 className="text-xl font-bold text-white">
                       Your Degree Roadmap - Computer Science BS
@@ -212,7 +212,7 @@ export default function Dashboard() {
             {/* Right side - Stats and Alerts */}
             <div className="w-64 space-y-3 flex flex-col overflow-auto">
               {/* Progress Circle */}
-              <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-4 flex items-center justify-center">
+              <div className="bg-[#1a1a1a] rounded-lg shadow-xl p-4 flex items-center justify-center">
                 <div className="relative w-32 h-32">
                   <svg className="w-32 h-32 transform -rotate-90">
                     <circle
@@ -243,7 +243,7 @@ export default function Dashboard() {
               </div>
 
               {/* Stats Card */}
-              <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-4 space-y-3">
+              <div className="bg-[#1a1a1a] rounded-lg shadow-xl p-4 space-y-3">
                 <div>
                   <div className="text-gray-400 text-xs mb-1">Credits Earned</div>
                   <div className="text-md font-bold text-white">90 / 120</div>
@@ -267,7 +267,7 @@ export default function Dashboard() {
               </div>
 
               {/* Alerts Card */}
-              <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-5">
+              <div className="bg-[#1a1a1a] rounded-lg shadow-xl p-5">
                 <h3 className="text-sm font-bold text-white mb-3">Alerts</h3>
                 <div className="space-y-3">
                   <div className="flex gap-2 items-start">
@@ -301,7 +301,7 @@ export default function Dashboard() {
             onClick={() => setSelectedCourse(null)}
           >
             <div 
-              className="bg-[#2d2d2d] rounded-lg p-8 max-w-lg w-full mx-4 relative border border-gray-600"
+              className="bg-[#1a1a1a] rounded-lg p-8 max-w-lg w-full mx-4 relative border border-[#FFC904]"
               onClick={(e) => e.stopPropagation()}
             >
               <button

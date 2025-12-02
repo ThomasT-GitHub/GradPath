@@ -65,22 +65,22 @@ export default function Catalog() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
       
       <main className="flex-1 overflow-hidden flex flex-col">
-        <div className="bg-[#2d2d2d] border-b border-gray-700 px-6 py-4">
+        <div className="bg-[#1a1a1a] px-6 py-4">
           {/* Search Bar */}
           <div className="flex gap-3 mb-4">
             <input
               type="text"
-              placeholder="Search courses..."
+              placeholder="Search Courses..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1 bg-white rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#FFC904]"
+              className="flex-1 bg-[#2d2d2d] rounded-lg px-4 py-2.5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FFC904]"
             />
             <button className="bg-black text-[#4a9eff] px-6 py-2.5 rounded-lg font-semibold hover:bg-gray-900 transition-colors flex items-center gap-2">
-              <FiSearch className="text-xl" />
+              <FiSearch className="text-xl text-gray-400" />
             </button>
           </div>
 
@@ -109,7 +109,7 @@ export default function Catalog() {
               <div
                 key={course.code}
                 onClick={() => setSelectedCourse(course)}
-                className="bg-[#2d2d2d] border border-gray-600 rounded-lg p-4 hover:border-gray-500 transition-colors cursor-pointer"
+                className="bg-[#1a1a1a] rounded-lg p-4 transition-colors cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="font-bold text-white text-base">{course.code}</div>
@@ -131,7 +131,7 @@ export default function Catalog() {
             onClick={() => setSelectedCourse(null)}
           >
             <div 
-              className="bg-[#2d2d2d] rounded-lg p-8 max-w-lg w-full mx-4 relative border border-gray-600"
+              className="bg-[#1a1a1a] rounded-lg p-8 max-w-lg w-full mx-4 relative border border-[#FFC904]"
               onClick={(e) => e.stopPropagation()}
             >
               <button

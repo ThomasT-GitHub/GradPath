@@ -132,14 +132,14 @@ export default function Planner() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
       
       <main className="flex-1 overflow-hidden">
         <div className="h-full flex gap-4 px-4 py-4">
           {/* Left sidebar - Available Courses */}
           <div 
-            className="w-80 bg-[#2d2d2d] rounded-lg shadow-xl p-4 flex flex-col"
+            className="w-80 bg-[#1a1a1a] rounded-lg shadow-xl p-4 flex flex-col"
             onDrop={handleDropToAvailable}
             onDragOver={handleDragOver}
           >
@@ -156,7 +156,7 @@ export default function Planner() {
               {availableCourses.map((course) => (
                 <div
                   key={course.code}
-                  className="bg-[#3d3d3d] border border-gray-600 rounded-lg p-3 cursor-move hover:bg-[#4d4d4d] transition-colors"
+                  className="bg-[#3d3d3d] rounded-lg p-3 cursor-move hover:bg-[#4d4d4d] transition-colors"
                   draggable
                   onDragStart={(e) => handleDragStart(e, course, 'available')}
                 >
@@ -174,7 +174,7 @@ export default function Planner() {
           </div>
 
           {/* Right side - Semester Planning */}
-          <div className="flex-1 bg-[#2d2d2d] rounded-lg shadow-xl p-4 flex flex-col overflow-hidden">
+          <div className="flex-1 bg-[#1a1a1a] rounded-lg shadow-xl p-4 flex flex-col overflow-hidden">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-bold text-white">Plan Your Semesters</h2>
               <button className="flex items-center gap-2 bg-[#FFC904] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#e6b503] transition-colors">

@@ -51,7 +51,7 @@ export default function Navbar() {
           }
         }
       `}</style>
-      <nav className="bg-black border-b border-gray-800">
+      <nav className="bg-[#1a1a1a]">
       <div className="w-full px-6">
         <div className="flex items-center justify-between h-14">
           <div className="flex items-center gap-2">
@@ -74,7 +74,7 @@ export default function Navbar() {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   location.pathname === item.path
                     ? 'bg-[#FFC904] text-black'
-                    : 'text-white hover:bg-gray-800'
+                    : 'text-white hover:bg-gray-600'
                 }`}
               >
                 {item.name}
@@ -105,7 +105,7 @@ export default function Navbar() {
                   }}
                 />
                 <div 
-                  className="absolute right-0 top-full mt-2 w-56 bg-[#2d2d2d] border border-gray-600 rounded-lg shadow-2xl z-50"
+                  className="absolute right-0 top-full mt-2 w-56 bg-[#1a1a1a] border border-gray-600 rounded-lg shadow-2xl z-50"
                   style={{
                     animation: 'dropdownSlide 0.2s ease-out',
                     transformOrigin: 'top right'
@@ -118,26 +118,29 @@ export default function Navbar() {
 
                   {/* Menu Items */}
                   <div className="py-2">
-                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors">
+                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-600 transition-colors">
                       <IoPersonOutline className="text-xl" />
                       <span className="text-sm">My Profile</span>
                     </button>
-                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors">
+                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-600 transition-colors">
                       <IoSettingsOutline className="text-xl" />
                       <span className="text-sm">Account Settings</span>
                     </button>
                   </div>
 
                   <div className="border-t border-gray-600 py-2">
-                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors">
+                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-600 transition-colors">
                       <IoHelpCircleOutline className="text-xl" />
                       <span className="text-sm">FAQs</span>
                     </button>
-                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors">
+                    <button 
+                      onClick={() => navigate('/help')}
+                      className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-600 transition-colors"
+                    >
                       <IoInformationCircleOutline className="text-xl" />
                       <span className="text-sm">Help</span>
                     </button>
-                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors">
+                    <button className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-600 transition-colors">
                       <IoDocumentTextOutline className="text-xl" />
                       <span className="text-sm">Terms and Privacy</span>
                     </button>
@@ -146,7 +149,7 @@ export default function Navbar() {
                   <div className="border-t border-gray-600 py-2">
                     <button 
                       onClick={() => navigate('/')}
-                      className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-700 transition-colors"
+                      className="w-full px-4 py-3 flex items-center gap-3 text-gray-200 hover:bg-gray-600 transition-colors"
                     >
                       <IoLogOutOutline className="text-xl" />
                       <span className="text-sm">Logout</span>

@@ -70,7 +70,7 @@ export default function Help() {
   ]
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
 
       <main className="flex-1 overflow-auto">
@@ -82,7 +82,7 @@ export default function Help() {
               <div
                 key={idx}
                 onClick={() => section.link && navigate(section.link)}
-                className={`bg-[#2d2d2d] border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors ${section.link ? 'cursor-pointer hover:opacity-80' : ''}`}
+                className={`bg-[#1a1a1a] rounded-lg p-4 transition-colors ${section.link ? 'cursor-pointer hover:opacity-80' : ''}`}
               >
                 <div className="flex flex-col items-center text-center gap-3">
                   <div className="shrink-0">{section.icon}</div>

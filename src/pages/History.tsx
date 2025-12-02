@@ -1,6 +1,6 @@
-// ======= //
-// History //
-// ======= //
+// ============ //
+// History Page //
+// ============ //
 
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
@@ -9,6 +9,7 @@ import { IoChevronDown, IoChevronUp } from 'react-icons/io5'
 interface Course {
   code: string
   name: string
+  professor: string
   grade: string
 }
 
@@ -30,11 +31,11 @@ export default function History() {
       gpa: 3.8,
       expanded: true,
       courses: [
-        { code: 'COP 3530', name: 'Data Structures', grade: 'A' },
-        { code: 'COT 3100', name: 'Discrete Math', grade: 'A-' },
-        { code: 'MAC 2311', name: 'Calculus I', grade: 'B+' },
-        { code: 'ENC 1101', name: 'Composition I', grade: 'A' },
-        { code: 'AMH 2010', name: 'US History', grade: 'A-' },
+        { code: 'COP 3530', name: 'Data Structures', professor: 'Dr. Sarah Chen', grade: 'A' },
+        { code: 'COT 3100', name: 'Discrete Math', professor: 'Dr. Michael Rodriguez', grade: 'A-' },
+        { code: 'MAC 2311', name: 'Calculus I', professor: 'Dr. Jennifer Kim', grade: 'B+' },
+        { code: 'ENC 1101', name: 'Composition I', professor: 'Prof. David Thompson', grade: 'A' },
+        { code: 'AMH 2010', name: 'US History', professor: 'Dr. Emily Martinez', grade: 'A-' },
       ],
     },
     {
@@ -44,10 +45,10 @@ export default function History() {
       gpa: 3.6,
       expanded: false,
       courses: [
-        { code: 'COP 3503', name: 'Programming II', grade: 'A' },
-        { code: 'COP 3502', name: 'Programming I', grade: 'B+' },
-        { code: 'MAC 1105', name: 'College Algebra', grade: 'A-' },
-        { code: 'PSY 2012', name: 'General Psychology', grade: 'A' },
+        { code: 'COP 3503', name: 'Programming II', professor: 'Dr. James Anderson', grade: 'A' },
+        { code: 'COP 3502', name: 'Programming I', professor: 'Dr. Lisa Nguyen', grade: 'B+' },
+        { code: 'MAC 1105', name: 'College Algebra', professor: 'Prof. Robert Brown', grade: 'A-' },
+        { code: 'PSY 2012', name: 'General Psychology', professor: 'Dr. Amanda White', grade: 'A' },
       ],
     },
   ])
@@ -68,7 +69,7 @@ export default function History() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
 
       <main className="flex-1 overflow-auto">
@@ -77,7 +78,7 @@ export default function History() {
 
           <div className="space-y-4">
             {semesters.map((semester) => (
-              <div key={semester.id} className="bg-[#2d2d2d] rounded-lg overflow-hidden">
+              <div key={semester.id} className="bg-[#1a1a1a] rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleSemester(semester.id)}
                   className="w-full px-6 py-4 flex items-center justify-between hover:bg-[#353535] transition-colors"
@@ -106,11 +107,12 @@ export default function History() {
                         key={idx}
                         className="px-6 py-4 flex items-center justify-between border-b border-gray-700 last:border-b-0"
                       >
-                        <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-6 flex-1">
                           <span className="text-white font-bold min-w-[100px]">
                             {course.code}
                           </span>
-                          <span className="text-gray-300">{course.name}</span>
+                          <span className="text-gray-300 min-w-[200px]">{course.name}</span>
+                          <span className="text-gray-400 text-sm min-w-[150px]">{course.professor}</span>
                         </div>
                         <span className={`font-bold text-lg ${getGradeColor(course.grade)}`}>
                           {course.grade}

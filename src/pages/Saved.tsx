@@ -15,7 +15,7 @@ export default function Saved() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#1a1a1a]">
+    <div className="h-screen flex flex-col bg-black">
       <Navbar />
       
       <main className="flex-1 overflow-auto">
@@ -26,7 +26,7 @@ export default function Saved() {
             {savedCourses.map((course) => (
               <div
                 key={course.code}
-                className="bg-[#2d2d2d] border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors"
+                className="bg-[#1a1a1a] rounded-lg p-4 transition-colors"
               >
                 <div className="flex items-center justify-between gap-6">
                   <div className="flex items-center gap-4 flex-1">
@@ -46,7 +46,7 @@ export default function Saved() {
                     </button>
                     <button
                       onClick={() => handleRemove(course.code)}
-                      className="bg-transparent border border-gray-600 text-gray-300 px-5 py-1.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm"
+                      className="bg-transparent text-gray-300 px-5 py-1.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm"
                     >
                       Remove
                     </button>
