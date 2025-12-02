@@ -2,10 +2,12 @@
 // Saved Courses //
 // ============= //
 
+import { useNavigate } from 'react-router-dom'
 import { useSavedCourses } from '../components/SavedCoursesContext'
 import Navbar from '../components/Navbar'
 
 export default function Saved() {
+  const navigate = useNavigate()
   const { savedCourses, removeSavedCourse } = useSavedCourses()
 
   const handleRemove = (code: string) => {
@@ -36,7 +38,10 @@ export default function Saved() {
                   </div>
                   
                   <div className="flex gap-3">
-                    <button className="bg-black text-white px-5 py-1.5 rounded-lg font-semibold hover:bg-gray-900 transition-colors text-sm">
+                    <button 
+                      onClick={() => navigate('/planner')}
+                      className="bg-black text-white px-5 py-1.5 rounded-lg font-semibold hover:bg-gray-900 transition-colors text-sm"
+                    >
                       Add to Planner
                     </button>
                     <button
