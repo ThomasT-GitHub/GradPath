@@ -5,6 +5,7 @@
 import { useState } from 'react'
 import { BiInfoCircle } from 'react-icons/bi'
 import { HiDownload } from 'react-icons/hi'
+import { IoWarning, IoClose } from 'react-icons/io5'
 import Navbar from '../components/Navbar'
 
 interface Course {
@@ -36,6 +37,7 @@ export default function Planner() {
     'Summer 2026': [],
     'Fall 2026': [],
   })
+  const [alert, setAlert] = useState<{ message: string; show: boolean }>({ message: '', show: false })
 
   const semesterInfo = [
     { name: 'Fall 2025', maxCredits: 15 },
@@ -43,6 +45,33 @@ export default function Planner() {
     { name: 'Summer 2026', maxCredits: 12 },
     { name: 'Fall 2026', maxCredits: 15 },
   ]
+
+  const checkPrerequisites = (course: Course, targetSemester: string) => {
+    if (course.prereq === 'No prerequisites') return null
+    
+    // Extract prerequisite course codes from the prereq string
+    const prereqMatch = course.prereq.match(/([A-Z]{3} \d{4})/g)
+    if (!prereqMatch) return null
+
+    // Check if any prerequisites are missing from completed/planned semesters
+    const semesterOrder = ['Fall 2025', 'Spring 2026', 'Summer 2026', 'Fall 2026']
+    const targetIndex = semesterOrder.indexOf(targetSemester)
+    
+    // Get all courses planned before target semester
+    const plannedCourses = new Set<string>()
+    for (let i = 0; i < targetIndex; i++) {
+      semesters[semesterOrder[i]].forEach(item => plannedCourses.add(item.course.code))
+    }
+
+    // Check if all prerequisites are in the planned courses
+    const missingPrereqs = prereqMatch.filter(prereq => !plannedCourses.has(prereq))
+    
+    if (missingPrereqs.length > 0) {
+      return `${course.code} requires: ${missingPrereqs.join(', ')}`
+    }
+    
+    return null
+  }
 
   const handleDragStart = (e: React.DragEvent, course: Course, source: string) => {
     e.dataTransfer.setData('course', JSON.stringify(course))
@@ -53,6 +82,13 @@ export default function Planner() {
     e.preventDefault()
     const course: Course = JSON.parse(e.dataTransfer.getData('course'))
     const source = e.dataTransfer.getData('source')
+
+    // Check prerequisites
+    const prereqError = checkPrerequisites(course, target)
+    if (prereqError) {
+      setAlert({ message: prereqError, show: true })
+      setTimeout(() => setAlert({ message: '', show: false }), 5000)
+    }
 
     if (source === 'available') {
       // Moving from available courses to semester
@@ -187,6 +223,22 @@ export default function Planner() {
             </div>
           </div>
         </div>
+
+        {/* Prerequisite Alert */}
+        {alert.show && (
+          <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
+            <div className="bg-red-600 text-white px-5 py-3 rounded-lg shadow-xl flex items-center gap-2 max-w-md">
+              <IoWarning className="text-xl shrink-0" />
+              <span className="font-semibold text-sm">{alert.message}</span>
+              <button 
+                onClick={() => setAlert({ message: '', show: false })}
+                className="ml-2 bg-white text-red-600 px-1 py-1 rounded text-sm font-semibold hover:bg-gray-100 hover:opacity-70 transition-all flex items-center"
+              >
+                <IoClose />
+              </button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )
