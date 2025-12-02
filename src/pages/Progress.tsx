@@ -2,9 +2,12 @@
 // Progress Page //
 // ============= //
 
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
 export default function Progress() {
+  const navigate = useNavigate()
+  
   const overallProgress = {
     percentage: 75,
     completed: 90,
@@ -67,7 +70,11 @@ export default function Progress() {
             {categories.map((category) => {
               const percentage = Math.round((category.completed / category.total) * 100)
               return (
-                <div key={category.name} className="bg-[#2d2d2d] rounded-lg shadow-xl p-6">
+                <div 
+                  key={category.name} 
+                  onClick={() => navigate('/catalog')}
+                  className="bg-[#2d2d2d] rounded-lg shadow-xl p-6 cursor-pointer hover:border hover:border-gray-600 transition-all"
+                >
                   <h2 className="text-lg font-bold text-white mb-4">{category.name}</h2>
                   
                   {/* Progress Bar */}
