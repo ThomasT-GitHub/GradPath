@@ -6,6 +6,7 @@ import Catalog from './pages/Catalog'
 import WhatIf from './pages/What-If'
 import Progress from './pages/Progress'
 import Saved from './pages/Saved'
+import History from './pages/History'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/what-if" element={<WhatIf />} />
         <Route path="/progress" element={<Progress />} />
         <Route path="/saved" element={<Saved />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </BrowserRouter>
   )
