@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-black border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-6">
         <div className="flex items-center justify-between h-14">
           <div className="flex items-center gap-2">
             <img
@@ -35,7 +35,7 @@ export default function Navbar() {
             </span>
           </div>
           
-          <div className="flex items-center gap-1">
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
             {navItems.map((item) => (
               <button
                 key={item.path}
@@ -52,9 +52,11 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-[#FFC904] rounded-full flex items-center justify-center">
-              <span className="text-black font-semibold text-sm">U</span>
-            </div>
+            <img
+              src="/aj-pfp.gif"
+              alt="Profile"
+              className="w-8 h-8 rounded-full object-cover"
+            />
           </div>
         </div>
       </div>
