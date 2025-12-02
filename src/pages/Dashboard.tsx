@@ -2,8 +2,10 @@
 // Dashboard Page //
 // ============== //
 
+import { useState } from 'react'
 import { BiInfoCircle } from 'react-icons/bi'
-import { IoWarningOutline } from 'react-icons/io5'
+import { IoWarningOutline, IoClose } from 'react-icons/io5'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { ReactFlow, Background, BackgroundVariant } from '@xyflow/react'
 import type { Node, Edge } from '@xyflow/react'
@@ -48,33 +50,47 @@ interface CourseNodeProps {
   professor: string
   semester: string
   credits: number
+  description: string
+  onClick: () => void
 }
 
-function CourseNode({ code, name, professor, semester, credits }: CourseNodeProps) {
+function CourseNode({ code, name, onClick }: CourseNodeProps) {
   return (
-    <div className="group relative">
-      <div className="opacity-100 group-hover:opacity-0 transition-opacity">
-        <div>{code}</div>
-        <div style={{ fontSize: '11px', fontWeight: 'normal' }}>{name}</div>
-      </div>
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center text-xs">
-        <div className="text-[10px] leading-tight">
-          <div>{professor}</div>
-          <div>{semester}</div>
-          <div>{credits} CR</div>
-        </div>
-      </div>
+    <div onClick={onClick} className="cursor-pointer">
+      <div>{code}</div>
+      <div style={{ fontSize: '11px', fontWeight: 'normal' }}>{name}</div>
     </div>
   )
 }
 
 export default function Dashboard() {
+  const navigate = useNavigate()
+  const [selectedCourse, setSelectedCourse] = useState<CourseNodeProps | null>(null)
+
+  const coursesData: Record<string, CourseNodeProps> = {
+    '1': { code: "COP 3502", name: "Programming I", professor: "Dr. Sarah Johnson", semester: "Spring 2023", credits: 3, description: "Introduction to programming fundamentals.", onClick: () => {} },
+    '2': { code: "COP 3503", name: "Programming II", professor: "Dr. Michael Chen", semester: "Fall 2023", credits: 3, description: "Object-oriented programming concepts.", onClick: () => {} },
+    '3': { code: "COT 3100", name: "Discrete Math", professor: "Dr. Emily Rodriguez", semester: "Fall 2023", credits: 3, description: "Mathematical foundations for computer science.", onClick: () => {} },
+    '4': { code: "MAC 2311", name: "Calculus I", professor: "Dr. James Patterson", semester: "Spring 2023", credits: 4, description: "Differential and integral calculus.", onClick: () => {} },
+    '5': { code: "COP 3530", name: "Data Structures", professor: "Dr. Lisa Anderson", semester: "Fall 2024 (Current)", credits: 3, description: "Advanced data structures and algorithms.", onClick: () => {} },
+    '6': { code: "COT 4210", name: "Algorithms", professor: "Dr. Robert Kim", semester: "Spring 2025 (Planned)", credits: 3, description: "Design and analysis of algorithms.", onClick: () => {} },
+    '7': { code: "STA 3032", name: "Statistics", professor: "Dr. Amanda White", semester: "Spring 2025 (Planned)", credits: 3, description: "Introduction to statistical analysis.", onClick: () => {} },
+    '8': { code: "COP 4520", name: "Parallel Computing", professor: "Dr. David Martinez", semester: "Fall 2025 (Planned)", credits: 3, description: "Parallel programming techniques.", onClick: () => {} },
+  }
+
+  const handleNodeClick = (id: string) => {
+    const course = coursesData[id]
+    if (course) {
+      setSelectedCourse({ ...course, onClick: () => setSelectedCourse(course) })
+    }
+  }
+
   const nodes: Node[] = [
     // Row 1 - Completed prerequisites
     {
       id: '1',
       data: { 
-        label: <CourseNode code="COP 3502" name="Programming I" professor="Dr. Sarah Johnson" semester="Spring 2023" credits={3} />
+        label: <CourseNode {...coursesData['1']} onClick={() => handleNodeClick('1')} />
       },
       position: { x: 0, y: 0 },
       style: nodeStyles.completed,
@@ -82,7 +98,7 @@ export default function Dashboard() {
     {
       id: '2',
       data: { 
-        label: <CourseNode code="COP 3503" name="Programming II" professor="Dr. Michael Chen" semester="Fall 2023" credits={3} />
+        label: <CourseNode {...coursesData['2']} onClick={() => handleNodeClick('2')} />
       },
       position: { x: 165, y: 0 },
       style: nodeStyles.completed,
@@ -90,7 +106,7 @@ export default function Dashboard() {
     {
       id: '3',
       data: { 
-        label: <CourseNode code="COT 3100" name="Discrete Math" professor="Dr. Emily Rodriguez" semester="Fall 2023" credits={3} />
+        label: <CourseNode {...coursesData['3']} onClick={() => handleNodeClick('3')} />
       },
       position: { x: 330, y: 0 },
       style: nodeStyles.completed,
@@ -98,7 +114,7 @@ export default function Dashboard() {
     {
       id: '4',
       data: { 
-        label: <CourseNode code="MAC 2311" name="Calculus I" professor="Dr. James Patterson" semester="Spring 2023" credits={4} />
+        label: <CourseNode {...coursesData['4']} onClick={() => handleNodeClick('4')} />
       },
       position: { x: 495, y: 0 },
       style: nodeStyles.completed,
@@ -107,7 +123,7 @@ export default function Dashboard() {
     {
       id: '5',
       data: { 
-        label: <CourseNode code="COP 3530" name="Data Structures" professor="Dr. Lisa Anderson" semester="Fall 2024 (Current)" credits={3} />
+        label: <CourseNode {...coursesData['5']} onClick={() => handleNodeClick('5')} />
       },
       position: { x: 82, y: 120 },
       style: nodeStyles.current,
@@ -115,7 +131,7 @@ export default function Dashboard() {
     {
       id: '6',
       data: { 
-        label: <CourseNode code="COT 4210" name="Algorithms" professor="Dr. Robert Kim" semester="Spring 2025 (Planned)" credits={3} />
+        label: <CourseNode {...coursesData['6']} onClick={() => handleNodeClick('6')} />
       },
       position: { x: 247, y: 120 },
       style: nodeStyles.future,
@@ -123,7 +139,7 @@ export default function Dashboard() {
     {
       id: '7',
       data: { 
-        label: <CourseNode code="STA 3032" name="Statistics" professor="Dr. Amanda White" semester="Spring 2025 (Planned)" credits={3} />
+        label: <CourseNode {...coursesData['7']} onClick={() => handleNodeClick('7')} />
       },
       position: { x: 412, y: 120 },
       style: nodeStyles.future,
@@ -132,7 +148,7 @@ export default function Dashboard() {
     {
       id: '8',
       data: { 
-        label: <CourseNode code="COP 4520" name="Parallel Computing" professor="Dr. David Martinez" semester="Fall 2025 (Planned)" credits={3} />
+        label: <CourseNode {...coursesData['8']} onClick={() => handleNodeClick('8')} />
       },
       position: { x: 82, y: 240 },
       style: nodeStyles.future,
@@ -251,7 +267,7 @@ export default function Dashboard() {
               </div>
 
               {/* Alerts Card */}
-              <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-4">
+              <div className="bg-[#2d2d2d] rounded-lg shadow-xl p-5">
                 <h3 className="text-sm font-bold text-white mb-3">Alerts</h3>
                 <div className="space-y-3">
                   <div className="flex gap-2 items-start">
@@ -277,6 +293,71 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
+        {/* Course Detail Modal */}
+        {selectedCourse && (
+          <div 
+            className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50"
+            onClick={() => setSelectedCourse(null)}
+          >
+            <div 
+              className="bg-[#2d2d2d] rounded-lg p-8 max-w-lg w-full mx-4 relative border border-gray-600"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedCourse(null)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-300 text-2xl"
+              >
+                <IoClose />
+              </button>
+              
+              <h2 className="text-2xl font-bold text-white mb-1">{selectedCourse.code}</h2>
+              <h3 className="text-lg text-gray-300 mb-6">{selectedCourse.name}</h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Description</h4>
+                  <p className="text-gray-300">{selectedCourse.description}</p>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Credits</h4>
+                  <p className="text-gray-300">{selectedCourse.credits}</p>
+                </div>
+                
+                {selectedCourse.semester && !selectedCourse.semester.includes('Planned') && (
+                  <>
+                    <div>
+                      <h4 className="text-sm font-semibold text-white mb-1">Professor</h4>
+                      <p className="text-gray-300">{selectedCourse.professor}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-white mb-1">Semester Taken</h4>
+                      <p className="text-gray-300">{selectedCourse.semester}</p>
+                    </div>
+                  </>
+                )}
+                
+                <div>
+                  <h4 className="text-sm font-semibold text-white mb-1">Prerequisites</h4>
+                  <p className="text-gray-300">COP 3502</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-3 mt-6">
+                <button 
+                  onClick={() => navigate('/planner')}
+                  className="flex-1 bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors"
+                >
+                  Add to Planner
+                </button>
+                <button className="flex-1 bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                  Bookmark
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )
