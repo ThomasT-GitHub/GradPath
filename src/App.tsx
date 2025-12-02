@@ -7,6 +7,7 @@ import WhatIf from './pages/What-If'
 import Progress from './pages/Progress'
 import Saved from './pages/Saved'
 import History from './pages/History'
+import Help from './pages/Help'
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/progress" element={<Progress />} />
         <Route path="/saved" element={<Saved />} />
         <Route path="/history" element={<History />} />
+        <Route path="/help" element={<Help />} />
       </Routes>
     </BrowserRouter>
   )
