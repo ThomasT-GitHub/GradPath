@@ -13,7 +13,7 @@ import Help from './pages/Help'
 export default function App() {
   return (
     <SavedCoursesProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/GradPath"> 
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
