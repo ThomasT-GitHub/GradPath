@@ -1,23 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GradPath - Loading</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body style="overflow: hidden;">
-    <div class="splash-screen">
-        <img src="logo.png" alt="GradPath Logo" class="splash-logo">
-        <h1 class="splash-title">GradPath</h1>
-        <p class="splash-subtitle">Loading your degree roadmap…</p>
-        <div class="spinner"></div>
-    </div>
-
-    <script>
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 800);
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GradPath</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
