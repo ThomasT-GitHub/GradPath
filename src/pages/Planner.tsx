@@ -3,6 +3,8 @@
 // ============= //
 
 import { useState } from 'react'
+import { BiInfoCircle } from 'react-icons/bi'
+import { HiDownload } from 'react-icons/hi'
 import Navbar from '../components/Navbar'
 
 interface Course {
@@ -105,7 +107,15 @@ export default function Planner() {
             onDrop={handleDropToAvailable}
             onDragOver={handleDragOver}
           >
-            <h2 className="text-lg font-bold text-white mb-4">Available Courses</h2>
+            <div className="flex items-center gap-2 mb-4">
+              <h2 className="text-lg font-bold text-white">Available Courses</h2>
+              <div className="group relative">
+                <BiInfoCircle className="text-gray-400 hover:text-gray-300 cursor-help text-lg" />
+                <div className="absolute left-0 top-full mt-2 w-64 bg-gray-800 text-white text-xs rounded-lg p-3 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  These are the courses available in your major. Drag them into semester slots to plan your schedule.
+                </div>
+              </div>
+            </div>
             <div className="flex-1 overflow-auto space-y-2 scrollbar-hide">
               {availableCourses.map((course) => (
                 <div
@@ -129,7 +139,13 @@ export default function Planner() {
 
           {/* Right side - Semester Planning */}
           <div className="flex-1 bg-[#2d2d2d] rounded-lg shadow-xl p-4 flex flex-col overflow-hidden">
-            <h2 className="text-lg font-bold text-white mb-4">Plan Your Semesters</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-white">Plan Your Semesters</h2>
+              <button className="flex items-center gap-2 bg-[#FFC904] text-black px-4 py-2 rounded-lg font-semibold hover:bg-[#e6b503] transition-colors">
+                <HiDownload className="text-lg" />
+                Download Plan
+              </button>
+            </div>
             <div className="flex-1 overflow-auto">
               <div className="grid grid-cols-4 gap-4 h-full">
                 {semesterInfo.map((semester) => (
