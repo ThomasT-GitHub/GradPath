@@ -2,25 +2,14 @@
 // Saved Courses //
 // ============= //
 
-import { useState } from 'react'
+import { useSavedCourses } from '../components/SavedCoursesContext'
 import Navbar from '../components/Navbar'
 
-interface SavedCourse {
-  id: number
-  code: string
-  name: string
-  credits: number
-}
-
 export default function Saved() {
-  const [savedCourses, setSavedCourses] = useState<SavedCourse[]>([
-    { id: 1, code: 'STA 3032', name: 'Statistical Methods', credits: 3 },
-    { id: 2, code: 'EEL 4768', name: 'Computer Architecture', credits: 3 },
-    { id: 3, code: 'COT 4210', name: 'Algorithms', credits: 3 },
-  ])
+  const { savedCourses, removeSavedCourse } = useSavedCourses()
 
-  const handleRemove = (id: number) => {
-    setSavedCourses(savedCourses.filter(course => course.id !== id))
+  const handleRemove = (code: string) => {
+    removeSavedCourse(code)
   }
 
   return (
@@ -34,7 +23,7 @@ export default function Saved() {
           <div className="space-y-3">
             {savedCourses.map((course) => (
               <div
-                key={course.id}
+                key={course.code}
                 className="bg-[#2d2d2d] border border-gray-700 rounded-lg p-4 hover:border-gray-600 transition-colors"
               >
                 <div className="flex items-center justify-between gap-6">
@@ -51,7 +40,7 @@ export default function Saved() {
                       Add to Planner
                     </button>
                     <button
-                      onClick={() => handleRemove(course.id)}
+                      onClick={() => handleRemove(course.code)}
                       className="bg-transparent border border-gray-600 text-gray-300 px-5 py-1.5 rounded-lg font-semibold hover:bg-gray-800 transition-colors text-sm"
                     >
                       Remove
