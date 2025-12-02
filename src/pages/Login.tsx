@@ -24,7 +24,7 @@ export default function Login() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-6">
             <img
-              src="/logo.png"
+              src={`${import.meta.env.BASE_URL}logo.png`}
               alt="UCF Logo"
               className="w-12 h-12 object-contain"
               onError={handleImageError}

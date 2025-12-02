@@ -56,7 +56,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-14">
           <div className="flex items-center gap-2">
             <img
-              src="/logo.png"
+              src={`${import.meta.env.BASE_URL}logo.png`}
               alt="UCF Logo"
               className="w-6 h-6 object-contain"
             />
@@ -88,7 +88,7 @@ export default function Navbar() {
               className="focus:outline-none transition-transform duration-200 hover:scale-110 active:scale-95"
             >
               <img
-                src="/aj-pfp.gif"
+                src={`${import.meta.env.BASE_URL}aj-pfp.gif`}
                 alt="Profile"
                 className="w-8 h-8 rounded-full object-cover"
               />
